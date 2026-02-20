@@ -2,7 +2,7 @@
 # MAGIC %md
 # MAGIC **Import Required Libraries**
 
-# COMMAND ----------
+# COMMAND -----------
 
 # DBTITLE 1,import function and table
 from pyspark.sql import functions as F
