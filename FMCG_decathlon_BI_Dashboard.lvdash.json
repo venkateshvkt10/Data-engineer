@@ -1,0 +1,2458 @@
+{
+  "datasets": [
+    {
+      "name": "daed6c72",
+      "displayName": "vw_fact_orders_enriched",
+      "queryLines": [
+        "SELECT * FROM fmcg.gold.vw_fact_orders_enriched"
+      ],
+      "columns": [
+        {
+          "displayName": "Total Sales (INR)",
+          "description": "Total sales amount in INR",
+          "expression": "SUM(`total_amount_inr`)"
+        },
+        {
+          "displayName": "Total Quantity Sold",
+          "description": "Total quantity of products sold",
+          "expression": "SUM(`sold_quantity`)"
+        },
+        {
+          "displayName": "MoM Growth %",
+          "description": "Month-over-month growth percentage in total revenue",
+          "expression": "(SUM(`total_amount_inr`) - LAG(SUM(`total_amount_inr`)) OVER (ORDER BY `month_name`)) / NULLIF(LAG(SUM(`total_amount_inr`)) OVER (ORDER BY `month_name`), 0) * 100"
+        },
+        {
+          "displayName": "Average Selling Price (INR)",
+          "description": "Average selling price calculated as total revenue divided by total quantity sold",
+          "expression": "SUM(`total_amount_inr`) / NULLIF(SUM(`sold_quantity`), 0)"
+        },
+        {
+          "displayName": "YoY Growth %",
+          "description": "Year-over-year growth percentage in total revenue",
+          "expression": "(SUM(`total_amount_inr`) - LAG(SUM(`total_amount_inr`)) OVER (ORDER BY `year`)) / NULLIF(LAG(SUM(`total_amount_inr`)) OVER (ORDER BY `year`), 0) * 100"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "3ea8ba74",
+      "displayName": "KPI KEYS",
+      "layout": [
+        {
+          "widget": {
+            "name": "year",
+            "queries": [
+              {
+                "name": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_year",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    },
+                    {
+                      "name": "year_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Year"
+              },
+              "disallowAll": false,
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "INTEGER",
+                    "values": [
+                      {
+                        "value": "2024"
+                      }
+                    ]
+                  }
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "year",
+                    "queryName": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_year"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#6AD618"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 2,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "quaters",
+            "queries": [
+              {
+                "name": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_quarter",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "quarter",
+                      "expression": "`quarter`"
+                    },
+                    {
+                      "name": "quarter_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Quarter"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "quarter",
+                    "queryName": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_quarter"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#22D800"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 2,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "months",
+            "queries": [
+              {
+                "name": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_month_name",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "month_name",
+                      "expression": "`month_name`"
+                    },
+                    {
+                      "name": "month_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Months"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "month_name",
+                    "queryName": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_month_name"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#44E407"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 2,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "channel",
+            "queries": [
+              {
+                "name": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_channel",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "channel",
+                      "expression": "`channel`"
+                    },
+                    {
+                      "name": "channel_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Channel"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "channel",
+                    "queryName": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_channel"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#57D500"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 2,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "d3e79f08",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block\"><span style=\"color:#AB4057;font-size:36px;line-height:1.5;font-family:Courier New\">**DECATHLON KPI KEYS**</span></span>\n",
+                "\n",
+                "<span style=\"text-align:center;display:block\"><span style=\"color:#AB4057;font-size:14px\">***DASHBOARD***</span></span>"
+              ]
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#28D103"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "3e73ebc4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Revenue (INR)",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Displays the sum of total sales in INR."
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 2
+                    },
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Revenue (INR)"
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#B64D4D"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 5,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "total_quantity_card",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "measure(Total Quantity Sold)",
+                      "expression": "MEASURE(`Total Quantity Sold`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Quantity Sold",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Shows the total quantity of products sold."
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(Total Quantity Sold)",
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    },
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Quantity Sold"
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#C44141"
+              }
+            }
+          },
+          "position": {
+            "x": 7,
+            "y": 3,
+            "width": 5,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "total_customers_card",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "countdistinct(customer_code)",
+                      "expression": "COUNT(DISTINCT `customer_code`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Customers",
+                "showTitle": true,
+                "showDescription": true,
+                "description": " Counts the number of unique customers (customer_code)"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(customer_code)",
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    },
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Customers"
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#BB2C2C"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 5,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "total_products_card",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "countdistinct(product_code)",
+                      "expression": "COUNT(DISTINCT `product_code`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Total Products",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Counts the number of unique products (product_code)"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(product_code)",
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    },
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Products"
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#C03939"
+              }
+            }
+          },
+          "position": {
+            "x": 7,
+            "y": 5,
+            "width": 5,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "average_selling_price_card",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "measure(Average Selling Price (INR))",
+                      "expression": "MEASURE(`Average Selling Price (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Average Selling Price (INR)",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Calculates the average selling price as total revenue divided by total quantity sold."
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(Average Selling Price (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 2
+                    },
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Average Selling Price (INR)"
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#BD3737"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 5,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "yoy_growth_card",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "countdistinct(year)",
+                      "expression": "COUNT(DISTINCT `year`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "YoY Growth %",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(year)",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "YoY Growth %"
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#C03E3E"
+              }
+            }
+          },
+          "position": {
+            "x": 7,
+            "y": 7,
+            "width": 5,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "c87f721a",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block;\">**📊Executive Summary – Decathlon Sales Performance Dashboard**</span>\n",
+                "\n",
+                "<span style=\"text-align:center;display:block;\">**This dashboard provides a comprehensive overview of Decathlon’s sales performance, enabling data-driven decision-making across markets, products, and customer segments.**</span>"
+              ]
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#27D800"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "9fc091c6",
+      "displayName": "TIME INTELLIGENT SECTION",
+      "layout": [
+        {
+          "widget": {
+            "name": "3c09135c",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block\"><span style=\"color:#AB4057;font-size:36px;line-height:1.5;font-family:Courier New\">**DECATHLON**</span></span>\n",
+                "\n",
+                "<span style=\"text-align:center;display:block\"><span style=\"color:#AB4057;font-size:14px\">***TIME INTELLIGENT SECTION DASHBOARD***</span></span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "3c7250de",
+            "queries": [
+              {
+                "name": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_year",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    },
+                    {
+                      "name": "year_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "year",
+                    "queryName": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_year"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#51F713"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 2,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "2087dfa1",
+            "queries": [
+              {
+                "name": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_month_name",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "month_name",
+                      "expression": "`month_name`"
+                    },
+                    {
+                      "name": "month_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "month_name",
+                    "queryName": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_month_name"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#1FFF13"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 2,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "a7f4c4cc",
+            "queries": [
+              {
+                "name": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_quarter",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "quarter",
+                      "expression": "`quarter`"
+                    },
+                    {
+                      "name": "quarter_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "quarter",
+                    "queryName": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_quarter"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#0CFF00"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "d9478c02",
+            "queries": [
+              {
+                "name": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_date",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "date",
+                    "queryName": "dashboards/01f10d75b80c1040b550bab1e541b454/datasets/01f10d76274b13b6a008b32bce26fb16_date"
+                  }
+                ]
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#13F804"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "0f116de2",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue Trend by Year, Quarter, Month",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "year",
+                  "displayName": "Year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Revenue (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#00FF33"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "393b748c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue by Year_Quarter",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Total Revenue (INR)"
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#00EC27"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "afdae3b4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue Growth: Current vs Previous Year",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "year",
+                  "displayName": "Year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Revenue (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "year",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Year",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#3BFF03"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "5305a807",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "measure(Total Quantity Sold)",
+                      "expression": "MEASURE(`Total Quantity Sold`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Quantity Trend Over Time",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "date",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Quantity Sold)",
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    },
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Quantity Sold",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "date",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#19E200"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 8,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "273512b3",
+            "multilineTextboxSpec": {
+              "lines": [
+                "#### <span style=\"text-align:center;display:block;\">📈<span style=\"font-size: 14px;\"> Time Intelligence Analysis – Decathlon Sales Performance</span></span>\n",
+                "\n",
+                "- *The Time Intelligence section provides a dynamic view of Decathlon’s revenue and sales trends over time, enabling leadership to monitor growth patterns, seasonality, and business momentum.*"
+              ]
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#FFFFFF"
+              },
+              "widgetBorderColor": {
+                "light": "#2ADB00"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "c7e45ba9",
+      "displayName": "Global Filters",
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "c504c9ec",
+      "displayName": "PRODUCT PERFORMANCE",
+      "layout": [
+        {
+          "widget": {
+            "name": "f9244065",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block\"><span style=\"color:#AB4057;font-size:36px;line-height:1.5;font-family:Courier New\">**DECATHLON**</span></span>\n",
+                "\n",
+                "<span style=\"text-align:center;display:block\"><span style=\"color: #AB4057;\">***PRODUCT PERFORMANCE***</span></span>"
+              ]
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#4EF606"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "cd783204",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "division",
+                      "expression": "`division`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue by Division",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "division",
+                  "displayName": "Division",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Sales (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "division",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Division",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#3DF90C"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "0298880d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue by Category",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "category",
+                  "displayName": "Category",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Sales (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "category",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#5BF700"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 6,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "97bd28d6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "product",
+                      "expression": "`product`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top 10 Products by Revenue",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "product",
+                  "displayName": "Product",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Sales (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "product",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Product",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#6BF102"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 7,
+            "width": 6,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "c5bbe643",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "variant",
+                      "expression": "`variant`"
+                    },
+                    {
+                      "name": "measure(Total Quantity Sold)",
+                      "expression": "MEASURE(`Total Quantity Sold`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top 10 Variants by Quantity Sold",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "variant",
+                  "displayName": "Variant",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Quantity Sold)",
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 0
+                    },
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Quantity Sold",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "variant",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Variant",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#39C000"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 6,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "ee3688d2",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    },
+                    {
+                      "name": "market",
+                      "expression": "`market`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Category vs Market Performance",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Total Sales (INR)"
+                },
+                "color": {
+                  "fieldName": "market",
+                  "displayName": "Market",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#42D800"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 11,
+            "width": 6,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "e5d6b8eb",
+            "multilineTextboxSpec": {
+              "lines": [
+                "#### <span style=\"text-align:center;display:block\"><span style=\"font-size: 14px;\">**🏷 Product Performance Analysis – Decathlon**</span></span>\n",
+                "\n",
+                "- The Product Performance section provides deep visibility into how Decathlon’s product portfolio is performing across divisions, categories, markets, and variants.\n",
+                "- It enables strategic decisions related to pricing, assortment optimization, and market expansion."
+              ]
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#FFFFFF"
+              },
+              "widgetBorderColor": {
+                "light": "#2ADB00"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "6b336c12",
+      "displayName": "MARKET AND CUSTOMER INSIGHTS",
+      "layout": [
+        {
+          "widget": {
+            "name": "8f08b1f8",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block\"><span style=\"color:#AB4057;font-size:36px;line-height:1.5;font-family:Courier New\">**DECATHLON**</span></span>\n",
+                "\n",
+                "#### <span style=\"text-align:center;display:block;\">🌍<span style=\"font-size:14px\"> </span><span style=\"color:#AB4057\">***MARKET AND CUSTOMER INSIGHTS DASHBOARD***</span></span>"
+              ]
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#4EF606"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "05d22996",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "market",
+                      "expression": "`market`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue by Market",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "market",
+                  "displayName": "Market",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Sales (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "market",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Market",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#38CF00"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "84d06464",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "platform",
+                      "expression": "`platform`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue by Platform",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "platform",
+                  "displayName": "Platform",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Sales (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "platform",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Platform",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#2FCB00"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "f31081c6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "channel",
+                      "expression": "`channel`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue by Channel",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "channel",
+                  "displayName": "Channel",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Sales (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "channel",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Channel",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#12CB00"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 5,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "d421374e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "customer",
+                      "expression": "`customer`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top 10 Customers by Revenue",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "customer",
+                  "displayName": "Customer",
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 10
+                    },
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Sales (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "customer",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Customer",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#55E300"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 6,
+            "width": 7,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "f581597d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "customer",
+                      "expression": "`customer`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Customer Contribution % (Pareto 80/20)",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "color": {
+                  "fieldName": "customer",
+                  "displayName": "Customer",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#3DC100"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 2,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "80515bd2",
+            "multilineTextboxSpec": {
+              "lines": [
+                "#### <span style=\"text-align:center;display:block\">🌍<span style=\"font-size:14px\"> </span><span style=\"font-size:14px\">**Market & Customer Insights – Decathlon**</span></span>\n",
+                "\n",
+                "- The Market & Customer Insights section provides a detailed understanding of how Decathlon’s revenue is distributed across markets, sales platforms, and customer segments."
+              ]
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#FFFFFF"
+              },
+              "widgetBorderColor": {
+                "light": "#2ADB00"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "bbaf22f4",
+      "displayName": "ADVANCE BUSINESS INSIGHTS",
+      "layout": [
+        {
+          "widget": {
+            "name": "d1a182c0",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block\"><span style=\"color:#AB4057;font-size:36px;line-height:1.5;font-family:Courier New\">**DECATHLON**</span></span>\n",
+                "\n",
+                "#### <span style=\"text-align:center;display:block\">🌍<span style=\"font-size:14px\"> </span><span style=\"font-size: 14px;color: #AB4057;\">ADVANCE BUSINESS</span><span style=\"font-size:14px\"> </span><span style=\"color:#AB4057\">***INSIGHTS DASHBOARD***</span></span>"
+              ]
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#4EF606"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "e44b87e6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "market",
+                      "expression": "`market`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Best Performing Market",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "market",
+                  "displayName": "Market",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Sales (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "market",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Market",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#39D100"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "1e601e37",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "measure(Total Sales (INR))",
+                      "expression": "MEASURE(`Total Sales (INR)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Worst Performing Category",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "category",
+                  "displayName": "Category",
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 10
+                    },
+                    "sort": {
+                      "by": "y"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(Total Sales (INR))",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Total Sales (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "category",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#DD0000"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 8,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "fe7d2b38",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "year_quarter",
+                      "expression": "`year_quarter`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Highest Growth Quarter",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "year_quarter",
+                  "displayName": "Year_Quarter",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "color": {
+                  "fieldName": "year_quarter",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Year_Quarter",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#01CA0E"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "6439659d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "platform",
+                      "expression": "`platform`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Platform Contribution %",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "color": {
+                  "fieldName": "platform",
+                  "displayName": "Platform",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#0FCC00"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 8,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "e10e2047",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "daed6c72",
+                  "fields": [
+                    {
+                      "name": "customer",
+                      "expression": "`customer`"
+                    },
+                    {
+                      "name": "sum(total_amount_inr)",
+                      "expression": "SUM(`total_amount_inr`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue per Customer",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "customer",
+                  "displayName": "Customer",
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 5
+                    },
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_amount_inr)",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "INR",
+                    "abbreviation": "compact"
+                  },
+                  "displayName": "Revenue (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "customer",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Customer",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "light": "#5CFD0A"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 8,
+            "width": 4,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "dce8a2ab",
+            "multilineTextboxSpec": {
+              "lines": [
+                "#### <span style=\"text-align:center;display:block\"><span style=\"font-size: 14px;\">**📈 🚀 Advanced Business Insights – Decathlon**</span></span>\n",
+                "\n",
+                "- This section transforms raw performance metrics into strategic intelligence, helping leadership identify strengths, risks, and growth opportunities across markets, categories, and platforms."
+              ]
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#FFFFFF"
+              },
+              "widgetBorderColor": {
+                "light": "#2ADB00"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
